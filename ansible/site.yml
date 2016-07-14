@@ -1,0 +1,19 @@
+- name: Build CMake
+  hosts: vtk_vrui
+  vars:
+    - cmake_version: v3.5.0
+    - cmake_path: "{{ vtk_vrui_cmake_path }}"
+  roles:
+    - cmake
+
+- name: Setup vtkVrui
+  hosts: vtk_vrui
+  roles:
+    - vtk_vrui
+
+- name: Setup mesa
+  hosts: vtk_vrui
+  roles:
+    - mesa
+
+

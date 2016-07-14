@@ -1,0 +1,5 @@
+---
+- src: https://github.com/cjh1/ansible-role-cmake
+  name: cmake
+
+

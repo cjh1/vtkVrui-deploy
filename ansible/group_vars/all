@@ -1,0 +1,10 @@
+vtk_vrui_cmake_path: "{{ansible_user_dir}}/cmake"
+vtk_vrui_superbuild_version: master
+vtk_vuri_base_path: "{{ansible_user_dir}}/vtkVuri"
+vtk_vuri_src_path: "{{vtk_vuri_base_path}}/src"
+vtk_vuri_build_path: "{{vtk_vuri_base_path}}/build"
+vtk_vuri_cmake_options:
+  - name: BUILD_TESTING
+    type: BOOL
+    value: "OFF"
+

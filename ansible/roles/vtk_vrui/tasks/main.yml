@@ -1,0 +1,50 @@
+- include_vars: ../vars/main.yml
+
+- name: Update apt cache
+  become: yes
+  become_user: root
+  apt: update_cache=yes
+
+- name: Install required packages
+  become: yes
+  become_user: root
+  apt: name={{ item }} state=present
+  with_items:
+    - "{{ packages }}"
+
+- name: Create vtkVRUI directiories
+  file:
+    path={{ item }}
+    state=directory
+  with_items:
+    - "{{ vtk_vuri_base_path }}"
+    - "{{ vtk_vuri_build_path }}"
+
+- name: Clone vtkVRUI-superbuild
+  git:
+    repo=https://github.com/VruiVTK/vtkVRUI-superbuild.git
+    version={{ vtk_vrui_superbuild_version }}
+    dest={{ vtk_vuri_src_path }}
+    recursive=yes
+    accept_hostkey=yes
+
+- name: Generating CMake initial cache
+  template:
+    src=cache.cmake.j2
+    dest={{vtk_vuri_build_path}}/cache.cmake
+
+- name: Configure vtkVRUI-superbuild
+  command: cmake -C {{ vtk_vuri_build_path }}/cache.cmake  {{ vtk_vuri_src_path }}
+    chdir={{ vtk_vuri_build_path }}
+
+- name: Build vtkVRUI-superbuild
+  command: make -j{{ ansible_processor_cores }}
+    chdir={{ vtk_vuri_build_path }}
+
+- name: Start desktop GUI
+  become: yes
+  become_user: root
+  service:
+    name=lightdm
+    state=started
+

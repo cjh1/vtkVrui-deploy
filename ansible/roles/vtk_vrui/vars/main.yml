@@ -1,0 +1,10 @@
+packages:
+  - git
+  - build-essential
+  - mesa-common-dev
+  - libxt-dev
+  - libgl1-mesa-dev
+  - ubuntu-desktop
+  - libz-dev
+  - libglew-dev
+  - pkg-config

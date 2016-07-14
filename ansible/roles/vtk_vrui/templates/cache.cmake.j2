@@ -1,0 +1,3 @@
+{% for opt in vtk_vuri_cmake_options -%}
+{{ 'set(%s %s CACHE %s "" FORCE)\n' % (opt.name, opt.value, opt.type) }}
+{%- endfor %}

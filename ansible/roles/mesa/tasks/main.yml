@@ -1,0 +1,21 @@
+- name: Download and extract prebuilt Mesa tarballs
+  unarchive:
+    copy=no
+    src="http://www.paraview.org/files/dependencies/{{ item }}"
+    dest="{{ vtk_vuri_build_path }}/install/lib"
+  with_items:
+    - "{{ mesa_tarballs }}"
+
+- name: Download and extract prebuilt Mesa tarballs
+  unarchive:
+    copy=no
+    src="http://www.paraview.org/files/dependencies/{{ item }}"
+    dest="{{ vtk_vuri_build_path }}/install/lib"
+  with_items:
+    - "{{ mesa_tarballs }}"
+
+- name: Move Mesa libs into lib directory
+  shell: mv {{ vtk_vuri_build_path }}/install/lib/mesa-llvm/* {{ vtk_vuri_build_path }}/install/lib/
+
+
+
